@@ -1,0 +1,24 @@
+# peticiones.http
+# Peticiones de prueba de serviclima-api.
+# Con la extensión REST Client: clic en "Send Request" encima de cada petición.
+# Este archivo crece cada sesión y es parte del entregable final.
+@base = http://localhost:3001
+### Listado de órdenes
+GET {{base}}/ordenes
+### Detalle de una orden
+GET {{base}}/ordenes/8
+### Orden que no existe (404)
+GET {{base}}/ordenes/999
+### Id que no es número (404)
+GET {{base}}/ordenes/abc
+Envíe las cuatro peticiones. Debería ver 200, 200, 404 y 404.
+21. Reto opcional: filtrar por estado
+Si le sobra tiempo, reemplace la ruta GET /ordenes por esta:
+// GET /ordenes y GET /ordenes?estado=pendiente
+app.get('/ordenes', (req, res) => {
+ const { estado } = req.query;
+ if (estado) {
+ return res.json(ordenes.filter((o) => o.estado === estado));
+ }
+ res.json(ordenes);
+});
